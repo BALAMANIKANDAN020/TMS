@@ -30,8 +30,12 @@ const ComplaintsListPage = () => {
     };
 
     const fetchStaff = async () => {
-        const { data } = await api.get('/users');
-        setStaff(data.filter(u => u.role !== 'User' && u.role !== 'SuperAdmin'));
+        try {
+            const { data } = await api.get('/users');
+            setStaff(data.filter(u => u.role !== 'User' && u.role !== 'SuperAdmin'));
+        } catch (err) {
+            console.error('Failed to fetch staff:', err);
+        }
     };
 
     const handleAssign = async (complaintId, staffId) => {

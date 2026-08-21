@@ -34,9 +34,6 @@ app.use('/api/rooms', require('./routes/roomRoutes'));
 app.use('/api/roles', require('./routes/roleRoutes'));
 app.use('/api/complaints', require('./routes/complaintRoutes'));
 
-app.get('/', (req, res) => {
-    res.send('TMS API is running...');
-});
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {

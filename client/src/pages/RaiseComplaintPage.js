@@ -1,16 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MainLayout from '../components/MainLayout';
 import api from '../utils/api';
-import { AuthContext } from '../context/AuthContext';
-import { Send, FileText, AlertTriangle } from 'lucide-react';
+import { Send, FileText, AlertTriangle, CheckCircle2, XCircle } from 'lucide-react';
 import './RaiseComplaintPage.css';
 
 const RaiseComplaintPage = () => {
-    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [blocks, setBlocks] = useState([]);
     const [rooms, setRooms] = useState([]);
     const [departments, setDepartments] = useState([]);
     const [programmes, setProgrammes] = useState([]);
+    const [popup, setPopup] = useState({ show: false, type: 'success', title: '', message: '' });
     const [formData, setFormData] = useState({
         block: '',
         room: '',
@@ -41,10 +42,20 @@ const RaiseComplaintPage = () => {
         e.preventDefault();
         try {
             await api.post('/complaints', formData);
-            alert('Complaint raised successfully!');
+            setPopup({
+                show: true,
+                type: 'success',
+                title: 'Complaint Raised Successfully!',
+                message: 'Your complaint has been submitted. Our support team will process it shortly.'
+            });
             setFormData({ block: '', room: '', department: '', programme: '', type: '', remarks: '', attachment: '' });
         } catch (err) {
-            alert('Failed to raise complaint');
+            setPopup({
+                show: true,
+                type: 'error',
+                title: 'Submission Failed',
+                message: err.response?.data?.message || 'Failed to raise complaint. Please try again.'
+            });
         }
     };
 
@@ -192,6 +203,34 @@ const RaiseComplaintPage = () => {
                     </form>
                 </div>
             </div>
+
+            {popup.show && (
+                <div className="popup-overlay page-enter">
+                    <div className={`popup-card ${popup.type}`}>
+                        <div className="popup-icon-box">
+                            {popup.type === 'success' ? <CheckCircle2 size={36} /> : <XCircle size={36} />}
+                        </div>
+                        <h3 className="popup-title">{popup.title}</h3>
+                        <p className="popup-message">{popup.message}</p>
+                        <div className="popup-actions">
+                            {popup.type === 'success' && (
+                                <button
+                                    className="popup-btn secondary"
+                                    onClick={() => navigate('/complaints')}
+                                >
+                                    View Complaints
+                                </button>
+                            )}
+                            <button
+                                className="popup-btn primary"
+                                onClick={() => setPopup({ ...popup, show: false })}
+                            >
+                                OK
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </MainLayout>
     );
 };

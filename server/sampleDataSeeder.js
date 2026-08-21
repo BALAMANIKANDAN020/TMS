@@ -21,8 +21,8 @@ const seedSampleData = async () => {
         await Programme.deleteMany();
         await Block.deleteMany();
         await Room.deleteMany();
-        // Remove everyone except the admin we created in seeder.js
-        await User.deleteMany({ email: { $ne: 'admin@tms.com' } });
+        // Remove everyone except admin@tms.com and user@tms.com
+        await User.deleteMany({ email: { $nin: ['admin@tms.com', 'user@tms.com'] } });
 
         console.log('Cleaning up collections...');
 

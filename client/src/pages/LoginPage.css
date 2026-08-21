@@ -202,10 +202,10 @@
 }
 
 .login-footer {
-    margin-top: 40px;
+    margin-top: 24px;
     text-align: center;
     border-top: 1px solid var(--border-glass);
-    padding-top: 24px;
+    padding-top: 20px;
 }
 
 .login-footer p {
@@ -214,6 +214,48 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 600;
+}
+
+.demo-logins-section {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.demo-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.demo-buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.demo-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-md);
+    padding: 8px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.demo-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-1px);
 }
 
 @media (max-width: 480px) {

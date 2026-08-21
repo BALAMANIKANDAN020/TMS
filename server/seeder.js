@@ -28,7 +28,7 @@ const seedData = async () => {
         console.log('Roles Seeded!');
 
         // SuperAdmin User
-        const adminUser = await User.create({
+        await User.create({
             name: 'Super Admin',
             email: 'admin@tms.com',
             password: 'admin123', // Will be hashed by pre-save hook
@@ -36,7 +36,16 @@ const seedData = async () => {
             role: 'SuperAdmin',
         });
 
-        console.log('SuperAdmin Seeded!');
+        // Regular User
+        await User.create({
+            name: 'Regular User',
+            email: 'user@tms.com',
+            password: 'user123', // Will be hashed by pre-save hook
+            phoneNumber: '9876543210',
+            role: 'User',
+        });
+
+        console.log('SuperAdmin and Regular User Seeded!');
         process.exit();
     } catch (error) {
         console.error(`Error: ${error.message}`);
