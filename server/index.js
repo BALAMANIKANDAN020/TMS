@@ -24,7 +24,7 @@ app.use(compression());
 
 // Home route
 app.get("/", (req, res) => {
-    res.send("TMS API is running...");
+    res.send("TMS Backend Running Successfully");
 });
 
 // Routes
@@ -52,7 +52,7 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
     console.log(
         `Server running in ${process.env.NODE_ENV || "development"} mode on port ${PORT}`
     );
